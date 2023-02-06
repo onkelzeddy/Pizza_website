@@ -1,0 +1,39 @@
+div
+    div(class="place-of-order") 
+        h1 Послeдний шаг
+        p(class="place-of-order-text")  Укажите Ваше имя:
+        input(type="text" id="name" class="place-of-order-text")
+        p(class="place-of-order-text")  Укажите Ваш телефон:
+        input(type="text" id="phoneNumber" class="place-of-order-text")
+        p(class="place-of-order-text")  Укажите адрес, на который нужно доставить заказ:
+        input(type="text" id="adr" class="place-of-order-text")
+        
+        button(class="place-order-button" id='confirm-order') Заказать
+
+
+    script.
+        $('#confirm-order').click(async function(event){
+            event.preventDefault();
+
+            var orderData = JSON.parse(localStorage.getItem('orderData'));  
+
+            orderData.userName = $('#name').val()
+            orderData.phoneNumber = $('#phoneNumber').val()
+            orderData.adr = $('#adr').val()
+
+            console.log(orderData)
+
+            await $.post('/main/create_order',orderData,function(data){
+                if(data.status == "OK"){
+                    alert("Заказ принят!")
+                }
+                else{
+                    alert(data.status)
+                }
+            });          
+
+            $('.modal').empty();
+            $('.modal' ).remove();
+            $('.blocker').empty();
+            $('.blocker' ).remove();
+        })

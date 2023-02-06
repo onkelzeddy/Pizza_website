@@ -1,0 +1,61 @@
+doctype html
+head
+    title= "Login"   
+    link(rel="stylesheet", href="/stylesheets/loginStyle.css",type="text/css")
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+
+
+body
+    div(class="login-window")
+        h1 Вход
+        form(class="text-field" action="")
+            p(class="text-fields")
+                label(for="username")  Логин
+                input(type="text" name="username" id="username" value="" class="input-field")
+                label(for="username" class="error" id="username-error") Это поле не может быть пустым!
+            p(class="text-fields")
+                label(for="password")  Пароль
+                input(type="password" name="password" id="password" value="" class="input-field")
+                label(for="password" class="error" id="password-error") Это поле не может быть пустым!
+            input(type="submit", value="Войти" , id="button" class="button-class")
+
+    script. 
+        $('.error').hide();
+        $(".button-class").click(function() {
+            $('.error').hide();
+
+            var username = $("#username").val();
+            if (username == "") {
+                $("#username-error").show();
+                $("#name").focus();
+                return false;
+            }
+
+            var password = $("input#password").val();
+            if (password == "") {
+                $("#password-error").show();
+                $("#password").focus();
+                return false;
+            }
+
+            var data = {username: username , password: password};
+            $.post('/login', data, function(data){
+                if(data.status == "OK"){
+                    localStorage.setItem('token', data.token);
+                    $.ajaxSetup({
+                        headers:{
+                            'Authorization': 'Bearer '  + localStorage.getItem('token')
+                        }
+                    });
+                    $.post('/auth',function(answ){
+                        window.location.href = answ;
+                    });
+                }
+                else{
+                    alert(data.status)
+                }
+            });
+            
+            return false;
+        });
+

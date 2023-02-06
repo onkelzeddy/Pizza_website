@@ -1,0 +1,61 @@
+doctype html
+head
+    title= "Pizza Time"  
+    link(rel="stylesheet", href="/stylesheets/mainStyle.css",type="text/css")
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <link rel="stylesheet" , href="/stylesheets/modal.css",type="text/css" />
+
+
+
+body
+    div(class = "header")
+        div(class = "inner-header")
+            h2 PizzaTime
+            div(class = "user-content")
+                h3(class = "user" id="user") Петр Петрович
+                div(class="circle")
+                
+    h1 Каталог:                
+
+    div(class="content")
+        div(class = "inner-content" id = "inner-content")
+            each val,key in data= pizzaData 
+                div(id= val['id'] class = "card" href= "/main/"+val['id']  )
+                    img(src= "/img/"+val['id']+".jpg" alt= val['name'] class="mini-card-img")
+                    div(class="card-text")
+                        h3(class="pizza-name")= val['name']
+                        p(class="pizza-price")= val['price'] + " ₽"
+
+    div(class = "footer")
+        div(class = "inner-footer") 
+            p Всегда вкусная и свежая пицца!
+
+
+    script.
+        $( document ).ready( function() {
+            $.ajaxSetup({
+                headers:{
+                    'Authorization': 'Bearer '  + localStorage.getItem('token')
+                }
+            });
+            var user = $.get('/user');
+            console.log(user.responseText);
+            if(user.responseText){
+                $('#user').text(user.responseText);
+            }
+            
+        })
+
+
+each val,key in data= pizzaData 
+    script.
+        $('#!{val['id']}').click(async function(event){
+            event.preventDefault();
+            $('.modal').empty();
+            $('.modal' ).remove();
+            this.blur();
+            await $.get($(this).attr('href'),{id: $(this).attr('id')}, function(html) {
+                $(html).appendTo('body').modal();
+            });
+        });

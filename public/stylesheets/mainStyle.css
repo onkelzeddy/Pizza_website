@@ -1,0 +1,221 @@
+h1,h2,h4{
+    font-size: 1vw;
+}
+
+*{
+    font-family: "Raleway";
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.mini-card-img{
+    height: 50%;
+    width: 75%;
+}
+
+.header{
+    box-shadow: 0px 0px 30px -6px rgba(0,0 ,0 ,0.25 );
+    width: 100%;
+    height: 5%;
+}
+
+.inner-header{
+    height: 100%;
+    margin: 0 10% 0 10%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.user-content{
+    display: flex;
+    align-items: center;
+    height: fit-content;
+    width: 10vw;
+    height: 100%;
+}
+
+.circle {
+    background: #456BD9;
+    clip-path: circle(50%);
+    aspect-ratio: 1 / 1;
+    height: 60%;
+    cursor: pointer;
+}
+
+
+.user{
+    cursor: pointer;
+    margin-right: 5%;
+    font-size: 0.75vw;
+}
+
+
+.content{
+    width: 100%;
+    height: 87%;
+}
+
+.inner-content{
+    height: 100%;
+    margin: 1% 15% 0 15%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap
+}
+
+.card{
+    width: 8vw;
+    height: 20vh;
+    display:flex;
+    margin: 1vh 1vw 1vh 1vw;
+    padding: 0 2% 0 2%;
+    border-width: 1px;
+    border-color: black;
+    text-align: left;
+    border-style: solid;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: flex-end;
+    align-items: center;
+    transition: 0.3s ;
+    transition-timing-function: ease-in-out ;
+}
+
+.card:hover{
+    cursor: pointer;
+    box-shadow: 0px 0px 15px black;
+}
+
+
+.card-text{
+    display:flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: flex-end;
+}
+
+.pizza-name{
+    height: 50%;
+    font-size: 0.75vw;
+}
+.pizza-price{
+    height: 50%;
+    font-size: 0.75vw;
+}
+
+.pizzaCard{
+    display: flex;
+    
+}
+.cardImg{
+    height: 25vh;
+    align-self: center;
+}
+.text-flex{
+    display:flex;
+    margin-left: 2vw;
+    flex-direction: column;
+    align-items: flex-start;
+    align-self: flex-start;
+    max-width: 40%;
+}
+
+.text-flex-total{
+    display:flex;
+    margin-left: auto;
+    margin-right: 1vw;
+    flex-direction: column;
+    align-items: flex-start;
+    align-self: flex-end;
+    max-width: 40%;
+    flex-wrap: wrap;
+    
+}
+
+.flex-for-price{
+    display: flex;
+}
+
+.modal-card-label{
+    margin: 1vh 0 0 0;
+}
+
+.modal-card-label-₽{
+    margin: 1vh 0 0 0.5vw;
+}
+
+.modal-card-name{
+    font-size: 1.25vw;
+    margin: 1vh 0 0 0;
+    color: #a92b01;
+}
+
+.disc{
+    margin: 1vh 0 0 0;
+    font-size: 0.7vw;
+    text-align: left;
+}
+
+.dopsCheckbox{
+    width: 0.75vw;
+    height: 0.75vw;
+    margin: 0;
+}
+
+.checkFlex{
+    display: flex;
+    align-items: center;
+    margin: 1vh 0 0 0;
+}
+
+.checkLabel{
+    margin-right: 1vw;
+    font-size: 0.7vw;
+}
+
+.order-button{
+    width: 5vw;
+    height: 3vh;
+    font-size: 1vw;
+    align-self: flex-end;
+}
+
+.place-order-button{
+    width: 5vw;
+    height: 3vh;
+    font-size: 1vw;
+    margin-top: 2vh;
+}
+
+.place-of-order{
+    padding: 0 2vw 0 2vw;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.place-of-order-text{
+    font-size: 0.7vw;
+    margin-bottom: 1vh;
+}
+
+.footer{
+    width: 100%;
+    height: 8%;
+    text-align: center;
+    background-color: rgb(159, 74, 4);
+    color: white;
+}
+
+.inner-footer{
+    margin: 0 10% 0 10%;
+    font-size: 0.75vw;
+}

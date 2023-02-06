@@ -1,0 +1,85 @@
+each pizzaVal,key in data= pizzaData 
+    div(id= "modal")
+        div(class="pizzaCard" id="pizzaCard" name = pizzaVal['id'])
+            img(src= "/img/"+pizzaVal['id']+".jpg" alt= pizzaVal['name'] class="cardImg")
+            div(class="text-flex")
+                h1(class="modal-card-name")=pizzaVal['name']
+                h2(class="modal-card-label") Описание:
+                p(class="disc")= pizzaVal['disc']
+                h2(class="modal-card-label") Основные игредиенты:
+                ul
+                    each ing in pizzaVal['ing']
+                        li(class="disc")= ing
+                h2(class="modal-card-label") Цена
+                p(class="disc")= pizzaVal['price'] + " ₽"
+            div(class="text-flex") 
+                h2(class="modal-card-label") Допы:
+                case dopsData.length 
+                    default
+                        - var n = 1
+                        each dopsVal,key in dopsDt= dopsData
+                            p(class = "checkFlex")
+                                label(for= dopsVal['name'] class="checkLabel") !{dopsVal['name'] + " " + dopsVal['price'] + " ₽"}
+                                input(type="checkbox" id= 'dop_'+n class = "dopsCheckbox" name=dopsVal['id']) 
+                                - n++
+                    when 0
+                         p(class="disc") Допов нет
+            div(class="text-flex-total")             
+                h1(class="modal-card-label") Итоговая цена:
+                div(class="flex-for-price")
+                    h2(class="modal-card-label" id="price" ) !{pizzaVal['price']}
+                    h2( class="modal-card-label-₽")  ₽
+            button( class="order-button" id="order" href="/order") Заказать
+
+        script.
+                $('#order').click(async function(event){
+                    event.preventDefault();
+                    this.blur();
+
+                    var dopsId = '{';
+
+                    for (var i=1;i<= !{dopsData.length};i++){
+                        if($('#'+'dop_'+i)['0'].checked){
+                            if(i!=1 && $('#'+'dop_'+(i-1))['0'].checked){
+                                dopsId += ','
+                            }
+                            dopsId += Number($('#'+'dop_'+i)['0'].name);
+                        }
+                    }
+                    dopsId += '}'
+
+                    if(dopsId.length == 0){
+                        dopsId = null
+                    }      
+
+                    var orderData = {
+                        pizzaId: Number($('#pizzaCard').attr('name')),
+                        dopsId: dopsId,
+                        price: Number($('#price').text())
+                    };
+                    localStorage.setItem('orderData',JSON.stringify(orderData))
+                    await $.get($(this).attr('href'), function(html) {
+                        $(html).appendTo('.modal').modal();
+                    });
+                });
+        - var n = 1
+        each dopsVal,key in dopsDt= dopsData
+            script.
+                $('#'+'dop_'+'!{n++}').change(function(event){
+                    if(this.checked) {
+                        var dopPrice = !{dopsVal['price']};
+                        var total = Number($('#price').text());
+                        var newTotal = dopPrice + total;
+                        event.preventDefault();
+                        $('#price').text(newTotal)
+                    }
+                    else {
+                        var dopPrice = !{dopsVal['price']};
+                        var total = Number($('#price').text());
+                        var newTotal =  total - dopPrice ;
+                        event.preventDefault();
+                        $('#price').text(newTotal)
+                    }
+                });
+                    
+
